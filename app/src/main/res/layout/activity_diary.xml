@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#C1C8B9"
+    android:padding="10dp"
+    tools:context=".DiaryActivity">
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancelBtn"
+        android:layout_width="107dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#393838"
+        android:text="HUỶ"
+        android:textColor="#C1C8B9"
+        app:icon="@android:drawable/ic_menu_revert"
+        app:iconTint="#58E700"
+        app:iconTintMode="multiply"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.983"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/rounded_corner"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.609"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/title_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#307E8A71"
+            android:hint="Tiêu đề"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#252525"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/selectDay" />
+
+        <EditText
+            android:id="@+id/description_input"
+            android:layout_width="match_parent"
+            android:layout_height="322dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="8dp"
+            android:background="#307E8A71"
+            android:gravity="top"
+            android:hint="Mô tả"
+            android:lines="10"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#252525"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.304"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_input" />
+
+        <ImageView
+            android:id="@+id/img_input"
+            android:layout_width="match_parent"
+            android:layout_height="177dp"
+
+            android:layout_marginTop="4dp"
+            android:padding="50dp"
+            android:scaleType="centerInside"
+            android:scaleX="2.0"
+            android:scaleY="2.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/gallery_512_foreground"
+            tools:srcCompat="@mipmap/gallery_512_foreground" />
+
+        <EditText
+            android:id="@+id/selectDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:editable="false"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/app_name"
+            android:inputType="date"
+            android:minHeight="48dp"
+            android:textColor="#000000"
+            android:textColorHint="#252525"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_input" />
+
+        <EditText
+            android:id="@+id/selectTime"
+            android:layout_width="75dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:editable="false"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/app_name"
+            android:inputType="date"
+            android:textColor="#000000"
+            android:textColorHint="#252525"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.993"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_input" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/saveBtn"
+        android:layout_width="107dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#393838"
+        android:text="LƯU"
+        android:textColor="#C1C8B9"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconTint="#58E700"
+        app:iconTintMode="multiply"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
