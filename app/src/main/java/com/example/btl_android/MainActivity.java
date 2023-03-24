@@ -2,6 +2,7 @@ package com.example.btl_android;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,27 +11,27 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButton;
-
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
-import io.realm.Sort;
 
 public class MainActivity extends AppCompatActivity {
+
+    private DiaryAdapter listViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().show();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -55,16 +56,14 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        Collections.reverse(diaryLst);
-        MyAdapter myAdapter = new MyAdapter(MainActivity.this, copyList, diaryLst);
-        recyclerView.setAdapter(myAdapter);
+        Collections.reverse(copyList);
+        listViewAdapter = new DiaryAdapter(MainActivity.this, copyList, diaryLst);
+        recyclerView.setAdapter(listViewAdapter);
         /////////
         //end init
         /////////
 
-
-        MaterialButton addBtn = findViewById(R.id.add_diary_btn);
-        addBtn.setOnClickListener(view -> {
+        findViewById(R.id.add_diary_btn).setOnClickListener(view -> {
             startActivity(new Intent(MainActivity.this, DiaryActivity.class));  //Khi bấm thêm mới sẽ mở sang DỉayActivity
         });
 
@@ -80,13 +79,35 @@ public class MainActivity extends AppCompatActivity {
 
             Collections.reverse(c);
 
-            recyclerView.setAdapter(new MyAdapter(MainActivity.this, c, diaryLst));
+            listViewAdapter = new DiaryAdapter(MainActivity.this, c, diaryLst);
+
+            recyclerView.setAdapter(listViewAdapter);
         });
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_menu, menu);
 
+        MenuItem menuItem = menu.findItem(R.id.search_button);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Type here to search");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                listViewAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

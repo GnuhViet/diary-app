@@ -25,6 +25,15 @@ public class Diary extends RealmObject {
         imageUri = null;
     }
 
+    public Diary(Diary d) {
+        this.id = d.id;
+        this.title = d.title;
+        this.content = d.content;
+        this.date = d.date;
+        this.time = d.time;
+        this.imageUri = d.imageUri;
+    }
+
     public static Date getDateTime(String date, String time) {
         try {
             return dateFormat.parse(date + " " + time);

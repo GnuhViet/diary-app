@@ -41,6 +41,7 @@ public class DiaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
+        getSupportActionBar().hide();
 
         Realm.init(getApplicationContext());
         Realm realm = Realm.getDefaultInstance();

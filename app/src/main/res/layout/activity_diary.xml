@@ -9,22 +9,22 @@
     android:padding="10dp"
     tools:context=".DiaryActivity">
 
-
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cancelBtn"
         android:layout_width="107dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:backgroundTint="#393838"
-        android:text="HUỶ"
+        android:src="@android:drawable/ic_menu_delete"
         android:textColor="#C1C8B9"
-        app:icon="@android:drawable/ic_menu_revert"
-        app:iconTint="#58E700"
+        app:fabCustomSize="48dp"
+        app:iconTint="#0058E700"
         app:iconTintMode="multiply"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.983"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="40dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -126,20 +126,22 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/saveBtn"
         android:layout_width="107dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:backgroundTint="#393838"
-        android:text="LƯU"
+        android:outlineProvider="none"
+        android:src="@android:drawable/ic_menu_send"
         android:textColor="#C1C8B9"
-        app:icon="@android:drawable/ic_input_add"
-        app:iconTint="#58E700"
+        app:fabCustomSize="48dp"
+        app:iconTint="#0058E700"
         app:iconTintMode="multiply"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="40dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
