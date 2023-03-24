@@ -16,6 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -82,6 +84,27 @@ public class MainActivity extends AppCompatActivity {
             listViewAdapter = new DiaryAdapter(MainActivity.this, c, diaryLst);
 
             recyclerView.setAdapter(listViewAdapter);
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigator);
+        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.calendar:
+                        startActivity(new Intent(getApplicationContext(), CalendarActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.home:
+                        return true;
+                    case R.id.about:
+                        //chuyển sang about
+                }
+
+                return false;
+            }
         });
     }
 
