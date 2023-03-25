@@ -43,23 +43,40 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycle_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigator);
+        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+
+            switch (item.getItemId()){
+                case R.id.calendar:
+                    startActivity(new Intent(getApplicationContext(), CalendarActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.home:
+                    return true;
+                case R.id.about:
+                    //chuyển sang about
+            }
+
+            return false;
+        });
+
         Realm.init(getApplicationContext());
 //        Realm.deleteRealm(Realm.getDefaultConfiguration());
 
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<Diary> diaryLst = realm.where(Diary.class).findAll();
+        RealmResults<Diary> realmResultsDiary = realm.where(Diary.class).findAll();
 
-        List<Diary> copyList = realm.copyFromRealm(diaryLst);
+        List<Diary> copyList = realm.copyFromRealm(realmResultsDiary);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             copyList.sort((o1, o2) -> {
                 Date dt1 = Diary.getDateTime(o1.getDate(), o1.getTime());
                 Date dt2 = Diary.getDateTime(o2.getDate(), o2.getTime());
-                return dt1.compareTo(dt2);
+                return dt2.compareTo(dt1);
             });
         }
 
-        Collections.reverse(copyList);
-        listViewAdapter = new DiaryAdapter(MainActivity.this, copyList, diaryLst);
+        listViewAdapter = new DiaryAdapter(MainActivity.this, copyList, realmResultsDiary);
         recyclerView.setAdapter(listViewAdapter);
         /////////
         //end init
@@ -69,42 +86,18 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, DiaryActivity.class));  //Khi bấm thêm mới sẽ mở sang DỉayActivity
         });
 
-        diaryLst.addChangeListener(diaries -> {
-            List<Diary> c = realm.copyFromRealm(diaryLst);
+        realmResultsDiary.addChangeListener(diaries -> {
+            List<Diary> c = realm.copyFromRealm(realmResultsDiary);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 c.sort((o1, o2) -> {
                     Date dt1 = Diary.getDateTime(o1.getDate(), o1.getTime());
                     Date dt2 = Diary.getDateTime(o2.getDate(), o2.getTime());
-                    return dt1.compareTo(dt2);
+                    return dt2.compareTo(dt1);
                 });
             }
-
-            Collections.reverse(c);
-
-            listViewAdapter = new DiaryAdapter(MainActivity.this, c, diaryLst);
+            listViewAdapter = new DiaryAdapter(MainActivity.this, c, realmResultsDiary);
 
             recyclerView.setAdapter(listViewAdapter);
-        });
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigator);
-        bottomNavigationView.setSelectedItemId(R.id.home);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()){
-                    case R.id.calendar:
-                        startActivity(new Intent(getApplicationContext(), CalendarActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.home:
-                        return true;
-                    case R.id.about:
-                        //chuyển sang about
-                }
-
-                return false;
-            }
         });
     }
 

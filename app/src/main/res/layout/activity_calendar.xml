@@ -4,30 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C1C8B9"
     tools:context=".CalendarActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2EB7ED"
         android:layout_alignParentBottom="true"
+        android:background="#2EB7ED"
         app:itemBackground="@color/purple_500"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/menu_nav"/>
+        app:menu="@menu/menu_nav" />
 
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="321dp"
+        android:background="#FFFFFF" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calendar_recycle_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/calendarView"
         android:layout_above="@id/bottom_navigator"
-        android:padding="10dp"/>
+        android:layout_below="@id/calendarView"
+        android:padding="10dp" />
 
 </RelativeLayout>
