@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,11 +31,13 @@ public class DiaryActivity extends AppCompatActivity {
     private EditText title_input;
     private EditText description_input;
     private ImageView imageView;
+    private FloatingActionButton addImageBtn;
     private Uri selectedImage;
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.US);
-
+    private final float IMAGE_VIEW_HEIGHT = 177;
+    private boolean isShow = false;
 
     private int diaryEditId = -1;
 
@@ -40,6 +45,7 @@ public class DiaryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_diary);
         getSupportActionBar().hide();
 
@@ -51,6 +57,18 @@ public class DiaryActivity extends AppCompatActivity {
         selectDay = findViewById(R.id.selectDay);
         selectTime = findViewById(R.id.selectTime);
         imageView = findViewById(R.id.img_input);
+        addImageBtn = findViewById(R.id.add_image_button);
+
+        addImageBtn.setOnClickListener(v -> {
+            if (isShow) {
+                isShow = false;
+                selectedImage = null;
+                toggleImageView();
+                return;
+            }
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, 3);
+        });
 
         findViewById(R.id.saveBtn).setOnClickListener(v -> {
 
@@ -103,11 +121,6 @@ public class DiaryActivity extends AppCompatActivity {
             finish();
         });
 
-        findViewById(R.id.img_input).setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, 3);
-        });
-
 
         DatePickerDialog.OnDateSetListener date = (view, year, month, day) -> {
             myCalendar.set(Calendar.YEAR, year);
@@ -145,12 +158,38 @@ public class DiaryActivity extends AppCompatActivity {
 
     }
 
+    private void toggleImageView() {
+        if (isShow) {
+            imageView.setVisibility(View.VISIBLE);
+            addImageBtn.setImageResource(R.drawable.ic_remove_image);
+            // start chon anh
+        } else {
+            imageView.setVisibility(View.INVISIBLE);
+            addImageBtn.setImageResource(R.drawable.ic_add_image);
+        }
+
+        float val = IMAGE_VIEW_HEIGHT;
+        if (!isShow) {
+            val = 0;
+        }
+        imageView.animate().translationY(-val);
+        title_input.animate().translationY(val);
+        description_input.animate().translationY(val);
+        selectDay.animate().translationY(val);
+        selectTime.animate().translationY(val);
+        imageView.animate().translationY(val);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
+            isShow = true;
             selectedImage = data.getData();
             imageView.setImageURI(selectedImage);
+            toggleImageView();
+        } else {
+            isShow = false;
         }
     }
 }
