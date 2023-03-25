@@ -40,14 +40,16 @@ public class CalendarActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.calendar);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.calendar:
-                    return true;
                 case R.id.home:
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
+                case R.id.calendar:
+                    return true;
                 case R.id.about:
-                    //chuyển sang about
+                    startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
             }
             return false;
         });

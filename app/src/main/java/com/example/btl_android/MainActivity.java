@@ -47,14 +47,16 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
 
             switch (item.getItemId()){
+                case R.id.home:
+                    return true;
                 case R.id.calendar:
                     startActivity(new Intent(getApplicationContext(), CalendarActivity.class));
                     overridePendingTransition(0,0);
                     return true;
-                case R.id.home:
-                    return true;
                 case R.id.about:
-                    //chuyển sang about
+                    startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
             }
 
             return false;
