@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;

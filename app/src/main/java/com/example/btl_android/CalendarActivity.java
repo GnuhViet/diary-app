@@ -1,17 +1,16 @@
 package com.example.btl_android;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.CalendarView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,8 +22,6 @@ import io.realm.RealmResults;
 
 public class CalendarActivity extends AppCompatActivity {
 
-    private DiaryAdapter listViewAdapter;
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private List<Diary> originDiaryList;
     private RecyclerView recyclerView;
     private RealmResults<Diary> realmResultsDiary;
@@ -100,7 +97,7 @@ public class CalendarActivity extends AppCompatActivity {
             }
         }
 
-        listViewAdapter = new DiaryAdapter(CalendarActivity.this, diaries, realmResultsDiary);
+        DiaryAdapter listViewAdapter = new DiaryAdapter(CalendarActivity.this, diaries, realmResultsDiary);
         recyclerView.setAdapter(listViewAdapter);
     }
 }
