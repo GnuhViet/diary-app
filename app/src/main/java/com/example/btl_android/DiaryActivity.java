@@ -36,7 +36,7 @@ public class DiaryActivity extends AppCompatActivity {
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.US);
-    private final float IMAGE_VIEW_HEIGHT = 177;
+    private final float IMAGE_VIEW_HEIGHT = 500;
     private boolean isShow = false;
 
     private int diaryEditId = -1;
