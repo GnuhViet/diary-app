@@ -66,7 +66,7 @@ public class DiaryActivity extends AppCompatActivity {
                 toggleImageView();
                 return;
             }
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, 3);
         });
 
@@ -150,6 +150,9 @@ public class DiaryActivity extends AppCompatActivity {
             selectTime.setText(b.getTime());
             if (b.getImageUri() != null) {
                 imageView.setImageURI(Uri.parse(b.getImageUri()));
+                isShow = false;
+                selectedImage = null;
+                toggleImageView();
             }
         } else {
             selectDay.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
