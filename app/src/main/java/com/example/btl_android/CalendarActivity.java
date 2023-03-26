@@ -27,6 +27,8 @@ public class CalendarActivity extends AppCompatActivity {
     private RealmResults<Diary> realmResultsDiary;
     private Calendar selectedDateInView;
 
+    static boolean active = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +73,10 @@ public class CalendarActivity extends AppCompatActivity {
 
 
         realmResultsDiary.addChangeListener(diaries -> {
-            originDiaryList = realm.copyFromRealm(realmResultsDiary);
-            uploadList(selectedDateInView);
+            if (active) {
+                originDiaryList = realm.copyFromRealm(realmResultsDiary);
+                uploadList(selectedDateInView);
+            }
         });
     }
 
@@ -101,5 +105,17 @@ public class CalendarActivity extends AppCompatActivity {
 
         DiaryAdapter listViewAdapter = new DiaryAdapter(CalendarActivity.this, diaries, realmResultsDiary);
         recyclerView.setAdapter(listViewAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
     }
 }
