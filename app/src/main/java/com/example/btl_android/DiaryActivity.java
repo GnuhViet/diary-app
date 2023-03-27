@@ -88,7 +88,7 @@ public class DiaryActivity extends AppCompatActivity {
 
             Bundle b = getIntent().getExtras();
             if (b != null) {
-                if (b.getBoolean("isFromCalendarActivity")) {
+                if (b.getBoolean("isCalendarActivity")) {
                     CalendarActivity.active = true;
                 }
             }
