@@ -1,10 +1,12 @@
 package com.example.btl_android;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.CalendarView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +29,7 @@ public class CalendarActivity extends AppCompatActivity {
     private RealmResults<Diary> realmResultsDiary;
     private Calendar selectedDateInView;
 
-    static boolean active = false;
+    public static boolean active = false;
 
 
     @Override
@@ -62,6 +64,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         CalendarView calendarView = findViewById(R.id.calendarView);
 
+        selectedDateInView = Calendar.getInstance();
         // init load (current date)
         uploadList(Calendar.getInstance());
         // choose date in calendar view
@@ -81,14 +84,14 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     private void uploadList(Calendar selected) {
-        Calendar current = Calendar.getInstance();
+        Calendar diaryDate = Calendar.getInstance();
         List<Diary> diaries = new ArrayList<>();
         for (Diary d : originDiaryList) {
-            current.setTime(Objects.requireNonNull(Diary.getDateTime(d.getDate(), d.getTime())));
+            diaryDate.setTime(Objects.requireNonNull(Diary.getDateTime(d.getDate(), d.getTime())));
 
-            if (selected.get(Calendar.YEAR) == current.get(Calendar.YEAR)
-                    && selected.get(Calendar.MONTH) == current.get(Calendar.MONTH)
-                    && selected.get(Calendar.DAY_OF_MONTH) == current.get(Calendar.DAY_OF_MONTH)) {
+            if (selected.get(Calendar.YEAR) == diaryDate.get(Calendar.YEAR)
+                    && selected.get(Calendar.MONTH) == diaryDate.get(Calendar.MONTH)
+                    && selected.get(Calendar.DAY_OF_MONTH) == diaryDate.get(Calendar.DAY_OF_MONTH)) {
                 diaries.add(d);
             }
         }
@@ -103,7 +106,8 @@ public class CalendarActivity extends AppCompatActivity {
             }
         }
 
-        DiaryAdapter listViewAdapter = new DiaryAdapter(CalendarActivity.this, diaries, realmResultsDiary);
+        DiaryAdapter listViewAdapter = new DiaryAdapter(CalendarActivity.this,
+                diaries, realmResultsDiary);
         recyclerView.setAdapter(listViewAdapter);
     }
 

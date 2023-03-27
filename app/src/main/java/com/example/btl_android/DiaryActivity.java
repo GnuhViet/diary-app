@@ -86,6 +86,10 @@ public class DiaryActivity extends AppCompatActivity {
                 return;
             }
 
+            if (getIntent().getExtras().getBoolean("isCalendarActivity")) {
+                CalendarActivity.active = true;
+            }
+
             // increment index
             Number currentIdNum = realm.where(Diary.class).max("id");
             int nextId;
@@ -109,11 +113,13 @@ public class DiaryActivity extends AppCompatActivity {
             diary.setDate(date);
             diary.setTime(time);
             diary.setImageUri(imageUri);
-
             realm.copyToRealmOrUpdate(diary);
             realm.commitTransaction();
 
             Toast.makeText(getApplicationContext(), "Đã lưu lại", Toast.LENGTH_SHORT).show();
+
+
+
             finish();
         });
 

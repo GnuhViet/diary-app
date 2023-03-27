@@ -3,6 +3,7 @@ package com.example.btl_android;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,13 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.viewHolder> 
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, DiaryActivity.class);
-            intent.putExtras(Diary.toBundle(diary));
+            Bundle b = Diary.toBundle(diary);
+
+            if(context instanceof CalendarActivity) {
+                b.putBoolean("isCalendarActivity",true);
+            }
+
+            intent.putExtras(b);
             context.startActivity(intent);
         });
 
