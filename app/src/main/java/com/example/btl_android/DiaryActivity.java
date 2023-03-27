@@ -86,9 +86,13 @@ public class DiaryActivity extends AppCompatActivity {
                 return;
             }
 
-            if (getIntent().getExtras().getBoolean("isCalendarActivity")) {
-                CalendarActivity.active = true;
+            Bundle b = getIntent().getExtras();
+            if (b != null) {
+                if (b.getBoolean("isFromCalendarActivity")) {
+                    CalendarActivity.active = true;
+                }
             }
+
 
             // increment index
             Number currentIdNum = realm.where(Diary.class).max("id");
@@ -98,7 +102,6 @@ public class DiaryActivity extends AppCompatActivity {
             } else {
                 nextId = currentIdNum.intValue() + 1;
             }
-
 
             realm.beginTransaction();
 //            Diary diary = realm.createObject(Diary.class, nextId);
@@ -117,9 +120,6 @@ public class DiaryActivity extends AppCompatActivity {
             realm.commitTransaction();
 
             Toast.makeText(getApplicationContext(), "Đã lưu lại", Toast.LENGTH_SHORT).show();
-
-
-
             finish();
         });
 

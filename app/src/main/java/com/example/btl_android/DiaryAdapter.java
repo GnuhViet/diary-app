@@ -65,9 +65,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.viewHolder> 
             Intent intent = new Intent(context, DiaryActivity.class);
             Bundle b = Diary.toBundle(diary);
 
-            if(context instanceof CalendarActivity) {
-                b.putBoolean("isCalendarActivity",true);
-            }
+            b.putBoolean("isCalendarActivity", context instanceof CalendarActivity);
 
             intent.putExtras(b);
             context.startActivity(intent);
